@@ -1,5 +1,4 @@
 from collections import Counter
-import numpy as np
 import os
 import math
 
@@ -9,6 +8,7 @@ def wordCount(doc_1, doc_2):
     if (doc_1 is not None) and (doc_2 is not None):
         doc_1=doc_1.lower().split()
         doc_2=doc_2.lower().split()
+        #Symbols removal in the list word of both documents
         for word in doc_1:
             word = word.replace(',','')
             word = word.replace('-','')
@@ -25,6 +25,7 @@ def wordCount(doc_1, doc_2):
             word = word.replace('.','')
             word = word.replace(';','')
             word = word.replace(':','')
+        #Documents' word frecuency
             if word in wordFrecuency_Doc2:
                 wordFrecuency_Doc2[word]+=1
             else:
@@ -34,6 +35,7 @@ def wordCount(doc_1, doc_2):
             wordSum = [i[:] for i in [[]]*len(wordFrecuency_Doc1)]
         else:
             wordSum = [i[:] for i in [[]]*len(wordFrecuency_Doc2)]
+        #Word comparison
         for word in wordFrecuency_Doc1:
             if word in wordFrecuency_Doc2:
                 wordSum[1].append(wordFrecuency_Doc2[word])
@@ -41,32 +43,28 @@ def wordCount(doc_1, doc_2):
             else:
                 wordSum[0].append(wordFrecuency_Doc1[word])
                 wordSum[1].append(0)
-        print("_____________________")
         for word in wordFrecuency_Doc2:
             if word not in wordFrecuency_Doc1:
                 wordSum[1].append(wordFrecuency_Doc2[word]) 
                 wordSum[0].append(0)
         
-        #Sumation of the square root multiplication
+        #Mathematical definition of cosine similarity
         sumationA = 0
         sumationB = 0
         sumationAB = 0
-        #print(wordSum[0])
-        #print(wordSum[1])
         for index, frequency in enumerate(wordSum[0],start=0):
             sumationA += math.pow(float(wordSum[0][index]),2)
             sumationB += math.pow(float(wordSum[1][index]),2)
         for index, frequency in enumerate(wordSum[0],start=0):
             wordSum[0][index] /= math.sqrt(sumationA)
             wordSum[1][index] /= math.sqrt(sumationB)
-            print(wordSum[0][index],"x",wordSum[1][index])
             sumationAB += wordSum[0][index]*wordSum[1][index]
-        print("The distance between the docuents is: ", sumationAB)
+        print("The distance between both documents is: %f"%math.acos(sumationAB))
     return True
 try:    
-    file = open("./t2.bobsey.txt")
+    file = open(raw_input("Enter name of the first document: "))
     file_1 = file.read()
-    file = open("./t6.onemillion.txt")
+    file = open(raw_input("Enter name of the second document: "))
     file_2 = file.read()
     a = wordCount(file_1, file_2)
     
