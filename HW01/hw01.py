@@ -58,11 +58,9 @@ def wordCount(doc_1, doc_2):
         print("The distance between both documents is: %f"%math.acos(sumationAB))
     return True
 try:    
-    #file = open(raw_input("Enter name of the first document: "))
-    file = open("./t2.bobsey.txt")
+    file = open(raw_input("Enter name of the first document: "))
     file_1 = file.read()
-    #file = open(raw_input("Enter name of the second document: "))
-    file = open("./t6.onemillion.txt")
+    file = open(raw_input("Enter name of the second document: "))
     file_2 = file.read()
     a = wordCount(file_1, file_2)
 except IOError:
