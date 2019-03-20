@@ -1,29 +1,20 @@
 import numpy as np
-import sys
 import math
-import numpy as np
-from future_builtins import map
-from collections import Counter
 from collections import *
 from itertools import chain
 from string import punctuation
 
 def main():
-    while True:
-        try:
-            #with open(sys.argv[1],'r') as filename_1, open(sys.argv[2],'r') as filename_2:
-            filename_1 = open(raw_input("Enter first document name:"))
-            filename_2 = open(raw_input("enter second document name:"))
-            if not filename_1 or not filename_2:
-                break
-            tokenizer(filename_1, filename_2)
-            sys.exit()
-        except IOError:
-            print("Could not read files!")
-            sys.exit()
-        finally:
-            filename_1.close()
-            filename_2.close()
+    try:
+        #with open(sys.argv[1],'r') as filename_1, open(sys.argv[2],'r') as filename_2:
+        filename_1 = open(raw_input("Enter first document name:"))
+        filename_2 = open(raw_input("enter second document name:"))
+        tokenizer(filename_1, filename_2)
+    except IOError:
+        print("Could not read files!")
+    finally:
+        filename_1.close()
+        filename_2.close()
 
 class OrderedCounter(Counter, OrderedDict):
     pass
